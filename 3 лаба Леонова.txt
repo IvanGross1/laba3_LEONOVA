@@ -1,0 +1,86 @@
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <cstring>
+using namespace std;
+
+class STRING
+{
+public:
+STRING(const char *s) {
+size = strlen(s);
+strcpy_s(data, s);
+allocated_size = size + 1;
+}
+STRING();
+~STRING();
+STRING& operator=(const STRING& right)
+{
+delete[] data;
+strcpy_s(data, right.data);
+size = right.size;
+allocated_size = size + 1;
+return *this;
+}
+friend STRING & operator+=(STRING& left, const STRING& right);
+friend bool operator==(const STRING& left, const STRING& right);
+friend bool operator!= (const STRING &c1, const STRING &c2);
+friend bool operator> (const STRING &d1, const STRING &d2);
+friend bool operator<= (const STRING &d1, const STRING &d2);
+friend bool operator< (const STRING &d1, const STRING &d2);
+friend bool operator>= (const STRING &d1, const STRING &d2);
+private:
+char data[256];
+unsigned allocated_size;
+unsigned size;
+};
+
+
+STRING & operator+=(STRING & left, const STRING & right)
+{
+strcat_s(left.data, right.data);
+return left;
+}
+
+bool operator==(const STRING& left, const STRING& right)
+{
+return left.data == right.data;
+}
+
+bool operator!= (const STRING &c1, const STRING &c2)
+{
+return !(c1.data == c2.data);
+}
+
+bool operator> (const STRING &d1, const STRING &d2)
+{
+return d1.data > d2.data;
+}
+
+bool operator>= (const STRING &d1, const STRING &d2)
+{
+return d1.data >= d2.data;
+}
+
+bool operator< (const STRING &d1, const STRING &d2)
+{
+return d1.data < d2.data;
+}
+
+bool operator<= (const STRING &d1, const STRING &d2)
+{
+return d1.data <= d2.data;
+}
+
+STRING::STRING()
+{
+}
+
+STRING::~STRING()
+{
+}
+
+int main()
+{
+return 0;
+}
